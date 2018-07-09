@@ -14,6 +14,10 @@ var teacherSchema = mongoose.Schema({
     birthDay   : String,
     address    : String,
     username : String,
+    class : String,
+    grade : String,
+    subject : String,
+    isClassTeacher : Boolean,
     noOfLeave: Number
 });
 
