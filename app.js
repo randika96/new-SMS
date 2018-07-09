@@ -73,7 +73,7 @@ app.use(function(req, res, next){
 
 seedDB();
 
- //====calling routes===
+//====calling routes===
 // app.get("/",function (req,res) {
 //     res.render("student/subject");
 // })
