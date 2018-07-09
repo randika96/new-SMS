@@ -6,6 +6,7 @@ var Student = require("../models/student");
 var Teacher = require("../models/teacher");
 var Principal = require("../models/principal");
 var Admin = require("../models/admin");
+var AdminNotice = require("../models/adminNotice");
 
 
 router.get("/",function (req,res) {
@@ -18,8 +19,16 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                res.render("admin/index");
-                console.log(admin);
+                AdminNotice.find({},function (err,notice) {
+                    if(err){
+                        console.log(err);
+                    }else {
+                        console.log(notice);
+                        res.render("admin/index",{notice:notice});
+                        console.log(admin);
+                    }
+                })
+
 
             }
         })

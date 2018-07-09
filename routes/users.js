@@ -7,6 +7,7 @@ var Teacher = require("../models/teacher");
 var Principal = require("../models/principal");
 var Admin = require("../models/admin");
 var Class = require("../models/class");
+var AdminNotice = require("../models/adminNotice");
 
 
 router.get("/new/student", isLoggedIn, function (req,res) {
@@ -277,6 +278,31 @@ router.get("/view/teacher", isLoggedIn, function (req,res) {
     })
 });
 
+router.get("/notice",isLoggedIn,function (req,res) {
+    res.render("admin/addNotice");
+})
+
+router.post("/notice",isLoggedIn,function (req,res) {
+    var notice = new AdminNotice({
+        topic:req.body.topic,
+        notice:req.body.notice
+    })
+    AdminNotice.remove({},function (err) {
+        if(err){
+            console.log(err);
+        }else {
+            AdminNotice.create(notice,function (err,newNotice) {
+                if(err){
+                    console.log(err);
+                }else {
+                    console.log(newNotice);
+                    res.redirect("/dashbord")
+                }
+            })
+        }
+    })
+
+})
 
 
 function isLoggedIn(req, res, next){
