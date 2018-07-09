@@ -5,26 +5,25 @@ var express    = require("express"),
     LocalStrategy = require("passport-local"),
     User        = require("./models/user"),
     Admin       = require("./models/admin"),
-    seedDB      = require("./seeds");
-
+    seedDB     = require("./seeds"),
+    expressValidator = require('express-validator'),
+    multer = require('multer');
 
 // =====require routes =======
 var indexRoutes      = require("./routes/index"),
     usersRoutes      = require("./routes/users"),
     subjectRoutes      = require("./routes/subject"),
-    leaveRoutes      = require("./routes/leave")
+    teacherRoutes    = require("./routes/teachers");
 
 
 
 var app = express();
-
-
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended: true}));
 app.set('view engine',"ejs");
 
 app.use(express.static(__dirname + "/public"));
-
+app.use(multer({dest: './public/upload/temp'}).single('file'));
 // connect with DB
 mongoose.connect("mongodb://localhost/SMS");
 
@@ -41,20 +40,40 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
+
+
+// Express Validator Middleware
+app.use(expressValidator({
+    errorFormatter: function (param, msg, value) {
+        var namespace = param.split('.')
+            , root = namespace.shift()
+            , formParam = root;
+
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}))
+
+
+
 //=====Set current user=====
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();
 });
 
-//File upload
-
-app.use(fileupload());
 // seed the db
 
 seedDB();
 
- //====calling routes===
+//====calling routes===
 // app.get("/",function (req,res) {
 //     res.render("student/subject");
 // })
@@ -62,7 +81,7 @@ seedDB();
 app.use("/users", usersRoutes);
 app.use("/", indexRoutes);
 app.use("/subjects", subjectRoutes);
-app.use("/leave", leaveRoutes);
+app.use("/teachers", teacherRoutes);
 
 
 
