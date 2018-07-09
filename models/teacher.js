@@ -17,7 +17,8 @@ var teacherSchema = mongoose.Schema({
     class : String,
     grade : String,
     subject : String,
-    isClassTeacher : Boolean
+    isClassTeacher : Boolean,
+    noOfLeave: Number
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);

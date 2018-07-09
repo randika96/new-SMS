@@ -5,8 +5,7 @@ var express    = require("express"),
     LocalStrategy = require("passport-local"),
     User        = require("./models/user"),
     Admin       = require("./models/admin"),
-    seedDB      = require("./seeds"),
-    fileupload  = require("express-fileupload");
+    seedDB      = require("./seeds");
 
 
 // =====require routes =======
@@ -18,8 +17,7 @@ var indexRoutes      = require("./routes/index"),
 
 
 var app = express();
-//File upload
-app.use(fileupload());
+
 
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended: true}));
