@@ -8,6 +8,9 @@ var Principal = require("../models/principal");
 var Admin = require("../models/admin");
 var CourseMaterial = require("../models/courseMaterial");
 var fileupload=require('express-fileupload');
+var fs = require('fs');
+var path = require('path');
+
 
 
 
@@ -26,43 +29,64 @@ router.get("/science/lectureSlides", isLoggedIn, function (req,res) {
 });
 
 router.get("/courseMaterials", isLoggedIn, function (req,res) {
-    res.render("teacher/courseMaterials");
+    res.render("teacher/addCourseMaterials");
 });
 
-router.post('/courseMaterials/upload',isLoggedIn,function(req,res){
-    console.log(req.files);
-    if(!req.files.sampleFile){
-        return res.status(400).send('No files were uploaded.');
-    }else{
-        var sampleFile = req.files.sampleFile;
-        CourseMaterial.findOne({fileName:sampleFile.name},function(err,file){
+router.post('/upload',isLoggedIn,function(req,res){
+    // req.checkBody('name','startdate is required').notEmpty();
+    // req.checkBody('description','enddate is required').notEmpty();
+    // req.checkBody('duedate','reason is required').notEmpty();
+    // req.checkBody('time','startdate is required').notEmpty();
+
+
+    // Get Errors
+    var errors = req.validationErrors();
+
+    if(errors){
+        // res.render("Error", {
+        //     errors:errors
+        // });
+    }
+
+    else{
+        var course = new CourseMaterial();
+
+        console.log('file info: ', req.file);
+        var possible = 'abcdefghijklmnopqrstuvwxyz0123456789',
+            imgUrl = '';
+
+        for (var i = 0; i < 6; i += 1) {
+            imgUrl += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        var tempPath = req.file.path, //<line 55 error
+            ext = path.extname(req.file.originalname).toLowerCase(),
+            targetPath = path.resolve('./public/upload/' + imgUrl + ext);
+
+        if (ext === '.png' || ext === '.jpg' || ext === '.doc' || ext === '.pdf' || ext === '.pptx' || ext === '.xlsx' || ext === '.docx' || ext === '.txt') {
+            fs.rename(tempPath, targetPath, function (err) {
+                if (err) throw err;
+                console.log("Upload completed!");
+            });
+        } else {
+            fs.unlink(tempPath, function () {
+                if (err) throw err;
+                res.json(500, {error: 'Only image files are allowed.'});
+            });
+        }
+
+
+        course.subject = req.body.subject;
+        course.date    = req.body.date;
+        course.fileNameame =targetPath ;
+
+
+        assignment.save(function(err){
             if(err){
                 console.log(err);
-            }else{
-                if(file==null){
-                    var dir='./public/uploads/courseMaterials/'+sampleFile.name;
-                    var material=new CourseMaterial();
-                    material.fileName=sampleFile.name;
-                    material.week = req.body.week;
-                    material.save(function(err){
-                        if(err){
-                            console.log(err);
-                        }else{
-                            sampleFile.mv(dir, function(err) {
-                                if(err){
-                                    return res.status(500).send(err);
-                                }else{
-                                    // req.flash('success','Schemes Uploaded');
-                                    res.redirect('/teacher/schemes');
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    /////////////////////////////////////////////////////////////////////////////////////make code to send a message to front end
-                    // req.flash('success','File already exists');
-                    res.redirect('back');
-                }
+                return;
+            } else {
+                res.redirect('/subjects/courseMaterials/upload');
             }
         });
     }
@@ -70,7 +94,10 @@ router.post('/courseMaterials/upload',isLoggedIn,function(req,res){
 
 
 router.get("/:subject", isLoggedIn, function (req,res) {
-    res.send(req.params.subject);
+    var subject = {
+        name:req.params.subject
+    }
+    res.render("student/subject",{subject:subject});
 });
 
 

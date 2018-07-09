@@ -1,9 +1,13 @@
 var mongoose = require("mongoose");
 
 var courseMaterialScehma = mongoose.Schema({
-    week    : {
-        type:String,
+    date    : {
+        type:Date,
         required:true
+    },
+    subject : {
+        type: String,
+        required :true
     },
     fileName    : {
         type:String,

@@ -193,7 +193,7 @@ router.post("/teacher", isLoggedIn, function (req,res) {
                                     grade : req.body.grade,
                                     subject : req.body.subject
                                 })
-                                Student.create(newTeacher,function (err,teacher) {
+                                Teacher.create(newTeacher,function (err,teacher) {
                                     if(err){
                                         console.log(err);
                                     }else {

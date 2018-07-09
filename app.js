@@ -7,7 +7,8 @@ var express    = require("express"),
     Admin       = require("./models/admin"),
     seedDB     = require("./seeds"),
     expressValidator = require('express-validator'),
-    multer = require('multer');
+    multer = require('multer'),
+    upload = require("express-fileupload");
 
 // =====require routes =======
 var indexRoutes      = require("./routes/index"),
@@ -18,6 +19,7 @@ var indexRoutes      = require("./routes/index"),
 
 
 var app = express();
+app.use(upload());
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended: true}));
 app.set('view engine',"ejs");
