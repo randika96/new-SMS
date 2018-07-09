@@ -19,12 +19,17 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                AdminNotice.find({},function (err,notice) {
+                AdminNotice.findOne({},function (err,notice) {
                     if(err){
                         console.log(err);
                     }else {
                         console.log(notice);
-                        res.render("admin/index",{notice:notice});
+                        var newNotice = {
+                            topic:notice.topic,
+                            notice:notice.notice
+                        }
+                        console.log(newNotice);
+                        res.render("admin/index",{notice:newNotice});
                         console.log(admin);
                     }
                 })
@@ -42,8 +47,8 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
 
             }
         })
-    }else if(req.user.type==="Principal"){
-        Student.findOne({"authent.id":req.user._id},function (err,principal) {
+    }else if(req.user.type==="principal"){
+        Principal.findOne({"authent.id":req.user._id},function (err,principal) {
             if(err){
                 console.log(err);
             }else {
@@ -53,7 +58,7 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             }
         })
     }else if(req.user.type==="Teacher"){
-        Student.findOne({"authent.id":req.user._id},function (err,teacher) {
+        Teacher.findOne({"authent.id":req.user._id},function (err,teacher) {
             if(err){
                 console.log(err);
             }else {
@@ -82,7 +87,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    res.redirect("/login");
+    res.redirect("/");
 }
 
 module.exports = router;

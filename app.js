@@ -8,13 +8,16 @@ var express    = require("express"),
     seedDB     = require("./seeds"),
     expressValidator = require('express-validator'),
     multer = require('multer'),
-    upload = require("express-fileupload");
+    upload = require("express-fileupload"),
+    expressSessiom = require("express-session");
 
 // =====require routes =======
 var indexRoutes      = require("./routes/index"),
     usersRoutes      = require("./routes/users"),
     subjectRoutes      = require("./routes/subject"),
-    teacherRoutes    = require("./routes/teachers");
+    teacherRoutes    = require("./routes/teachers"),
+    principalRoutes  = require("./routes/principal");
+
 
 
 
@@ -33,8 +36,11 @@ mongoose.connect("mongodb://localhost/SMS");
 app.use(require("express-session")({
     secret: "Once again Rusty wins cutest dog!",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: 6000000 } //time in ms
 }));
+
+// app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,6 +90,7 @@ app.use("/users", usersRoutes);
 app.use("/", indexRoutes);
 app.use("/subjects", subjectRoutes);
 app.use("/teachers", teacherRoutes);
+app.use("/principal", principalRoutes);
 
 
 

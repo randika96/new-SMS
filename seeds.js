@@ -4,6 +4,7 @@ var User = require("./models/user");
 var Admin   = require("./models/admin");
 var Student = require("./models/student");
 var Teacher = require("./models/teacher");
+var Principal = require("./models/principal");
 
 var data =  {
     name: "Admin",
@@ -54,6 +55,25 @@ function seedDB(){
                       }
 
                   });
+                  User.register({username:"principal",type:"principal"}, "password", function(err, user){
+                      if(err){
+                          console.log(err);
+                      }else{
+                          Principal.create(data,function (err,principal) {
+                              if(err){
+                                  console.log(err);
+                              }else{
+                                  principal.authent.id=user._id;
+                                  principal.authent.username=user.username;
+                                  principal.save();
+                                  console.log("Principal created!!!");
+                              }
+                          })
+
+                      }
+
+                  });
+
               }
           })
       }
