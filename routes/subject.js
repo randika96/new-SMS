@@ -10,6 +10,7 @@ var CourseMaterial = require("../models/courseMaterial");
 var fileupload=require('express-fileupload');
 var fs = require('fs');
 var path = require('path');
+var Announcement = require("../models/announcement");
 
 
 
@@ -93,12 +94,27 @@ router.post('/upload',isLoggedIn,function(req,res){
 });
 
 
+router.get("/notice",isLoggedIn,function (req,res) {
+    Announcement.findOne({},function (err,notice) {
+        if(err){
+            console.log(err);
+        }else {
+            res.render("principal/viewAnnouncements",{notice:notice});
+        }
+
+    })
+})
+
 router.get("/:subject", isLoggedIn, function (req,res) {
     var subject = {
         name:req.params.subject
     }
     res.render("student/subject",{subject:subject});
 });
+
+// router.get("/timetable",function (req,res) {
+//     res.render("student/timetable");
+// })
 
 
 function isLoggedIn(req, res, next){

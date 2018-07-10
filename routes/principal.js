@@ -114,7 +114,7 @@ router.get("/view/announcement",isLoggedIn,function (req,res) {
 })
 
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated()&& (req.user.type=='principal')){
         return next();
     }
     res.redirect("/");

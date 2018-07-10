@@ -37,7 +37,7 @@ app.use(require("express-session")({
     secret: "Once again Rusty wins cutest dog!",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 6000000 } //time in ms
+    cookie: { maxAge: 60000000 } //time in ms
 }));
 
 // app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))

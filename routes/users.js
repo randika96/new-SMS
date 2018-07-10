@@ -363,7 +363,7 @@ router.get("/leave/:id",isLoggedIn,function (req,res) {
 })
 
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated()&& (req.user.type=='admin')){
         return next();
     }
     res.redirect("/");
