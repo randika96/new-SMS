@@ -8,6 +8,7 @@ var Principal = require("../models/principal");
 var Admin = require("../models/admin");
 var Class = require("../models/class");
 var AdminNotice = require("../models/adminNotice");
+var Leave = require("../models/leave");
 
 
 router.get("/new/student", isLoggedIn, function (req,res) {
@@ -304,6 +305,62 @@ router.post("/notice",isLoggedIn,function (req,res) {
 
 })
 
+router.get("/leaveapplication/new",function (req,res) {
+
+    res.render("admin/newLeaveapplication");
+});
+
+router.get("/leaveapplication",function (req,res) {
+    Leave.find({'username' : req.user.username}, function(err, leaves){
+        res.render("admin/viewLeaveapplication",{
+            leaves:leaves
+        });
+    });
+
+
+});
+
+router.post("/leaveapplication",function (req,res) {
+    req.checkBody('startdate','startdate is required').notEmpty();
+    req.checkBody('enddate','enddate is required').notEmpty();
+    req.checkBody('reason','reason is required').notEmpty();
+
+    // Get Errors
+    let errors = req.validationErrors();
+
+    if(errors){
+        // res.render("Error", {
+        //     errors:errors
+        // });
+    }
+    else{
+        let leave = new Leave();
+        leave.startdate = req.body.startdate;
+        leave.enddate = req.body.enddate;
+        leave.reason = req.body.reason;
+        leave.username = req.user.username;
+        leave.status = false;
+
+        leave.save(function(err){
+            if(err){
+                console.log(err);
+                return;
+            } else {
+                res.redirect('/users/leaveapplication');
+            }
+        });
+    }
+});
+
+router.get("/leave/:id",isLoggedIn,function (req,res) {
+    Leave.findById(req.params.id,function (err,leaveApllication) {
+        if(err){
+            console.log(err);
+        }else {
+            res.render("admin/detailLeaveapplication",{application:leaveApllication});
+        }
+    })
+})
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
