@@ -13,24 +13,11 @@ var fs = require('fs');
 var path = require('path');
 
 
-// router.get("/leaveapplication/new",function (req,res) {
-//
-//     res.render("teacher/newLeaveapplication");
-// });
+router.get("/homework",function (req,res) {
+    res.render("student/assignment");
+});
 
-// router.get("/leaveapplication",function (req,res) {
-//     Leave.find({'username' : req.user.username}, function(err, leaves){
-//         res.render("teacher/viewLeaveapplication",{
-//             leaves:leaves
-//         });
-//     });
-//
-//
-// });
 
-// router.get("/leaveapplication/detailview",function (req,res) {
-//     res.render("teacher/detailLeaveapplication");
-// });
 
 
 

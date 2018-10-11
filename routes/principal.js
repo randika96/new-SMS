@@ -113,12 +113,21 @@ router.get("/view/announcement",isLoggedIn,function (req,res) {
     })
 })
 
+
+router.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+});
+
+
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()&& (req.user.type=='principal')){
         return next();
     }
     res.redirect("/");
 }
+
+
 
 
 

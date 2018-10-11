@@ -25,8 +25,8 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
                     }else {
                         console.log(notice);
                         var newNotice = {
-                            topic:notice.topic,
-                            notice:notice.notice
+                            // topic:notice.topic,
+                            // notice:notice.notice
                         }
                         console.log(newNotice);
                         res.render("admin/index",{notice:newNotice});
@@ -78,7 +78,7 @@ router.post("/login", passport.authenticate("local",
     }), function(req, res){
 });
 
-router.get("/logout", function(req, res){
+router.get("*/logout", function(req, res){
     req.logout();
     res.redirect("/");
 });

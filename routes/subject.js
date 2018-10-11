@@ -116,6 +116,11 @@ router.get("/:subject", isLoggedIn, function (req,res) {
 //     res.render("student/timetable");
 // })
 
+router.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+});
+
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

@@ -16,7 +16,8 @@ var indexRoutes      = require("./routes/index"),
     usersRoutes      = require("./routes/users"),
     subjectRoutes      = require("./routes/subject"),
     teacherRoutes    = require("./routes/teachers"),
-    principalRoutes  = require("./routes/principal");
+    principalRoutes  = require("./routes/principal"),
+    studentRoutes    = require("./routes/student");
 
 
 
@@ -91,6 +92,7 @@ app.use("/", indexRoutes);
 app.use("/subjects", subjectRoutes);
 app.use("/teachers", teacherRoutes);
 app.use("/principal", principalRoutes);
+app.use("/student", studentRoutes);
 
 
 
