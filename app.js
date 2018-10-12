@@ -5,7 +5,7 @@ var express    = require("express"),
     LocalStrategy = require("passport-local"),
     User        = require("./models/user"),
     Admin       = require("./models/admin"),
-    // seedDB     = require("./seeds"),
+    seedDB     = require("./seeds"),
     expressValidator = require('express-validator'),
     multer = require('multer'),
     upload = require("express-fileupload"),
@@ -31,7 +31,8 @@ app.set('view engine',"ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(multer({dest: './public/upload/temp'}).single('file'));
 // connect with DB
-mongoose.connect("mongodb://localhost/SMS");
+// mongoose.connect("mongodb://localhost/SMS");
+mongoose.connect("mongodb://randika:group03@ds131313.mlab.com:31313/sms");
 
 //==========Passport configuration=============
 app.use(require("express-session")({
@@ -80,7 +81,7 @@ app.use(function(req, res, next){
 
 // seed the db
 
-// seedDB();
+seedDB();
 
 //====calling routes===
 // app.get("/",function (req,res) {
