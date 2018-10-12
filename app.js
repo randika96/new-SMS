@@ -5,7 +5,7 @@ var express    = require("express"),
     LocalStrategy = require("passport-local"),
     User        = require("./models/user"),
     Admin       = require("./models/admin"),
-    seedDB     = require("./seeds"),
+    // seedDB     = require("./seeds"),
     expressValidator = require('express-validator'),
     multer = require('multer'),
     upload = require("express-fileupload"),
@@ -80,7 +80,7 @@ app.use(function(req, res, next){
 
 // seed the db
 
-seedDB();
+// seedDB();
 
 //====calling routes===
 // app.get("/",function (req,res) {

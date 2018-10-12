@@ -11,6 +11,7 @@ var Attendence = require("../models/attendence");
 var Assignment = require("../models/assignment");
 var fs = require('fs');
 var path = require('path');
+var TeacherNotice = require("../models/teacherNotice");
 
 
 // router.get("/leaveapplication/new",function (req,res) {
@@ -177,6 +178,38 @@ router.post("/assignment",function (req,res) {
 
 router.get("/coursematerial",function (req,res) {
     res.render("teacher/courseMaterial")
+})
+
+router.get("/notice",function (req,res) {
+    res.render("teacher/addNotice")
+})
+
+router.post("/notice",function (req,res) {
+    // console.log(req.body)
+    // var datetime = new Date();
+    // console.log(datetime);
+    // console.log(req.user);
+
+    Teacher.findOne({"username":req.user.username},function (err,teacher) {
+        if(err){
+            console.log(err)
+        }else {
+            var notice = new TeacherNotice({
+                topic: req.body.topic,
+                notice: req.body.notice,
+                grade:teacher.grade
+            })
+            TeacherNotice.create(notice,function (err,notice) {
+                if(err){
+                    console.log(err);
+                }else {
+                    console.log(notice)
+                }
+            })
+        }
+    })
+
+
 })
 
 router.get("/logout", function(req, res){

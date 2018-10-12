@@ -7,6 +7,8 @@ var Teacher = require("../models/teacher");
 var Principal = require("../models/principal");
 var Admin = require("../models/admin");
 var AdminNotice = require("../models/adminNotice");
+var Announcement = require("../models/announcement");
+
 
 
 router.get("/",function (req,res) {
@@ -19,7 +21,7 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                AdminNotice.findOne({},function (err,notice) {
+                Announcement.findOne({},function (err,notice) {
                     if(err){
                         console.log(err);
                     }else {
@@ -29,7 +31,7 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
                             // notice:notice.notice
                         }
                         console.log(newNotice);
-                        res.render("admin/index",{notice:newNotice});
+                        res.render("admin/index",{notice:notice});
                         console.log(admin);
                     }
                 })
@@ -42,8 +44,13 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                res.render("student/index");
-                console.log(student);
+                Announcement.findOne({},function (err,notice) {
+                    if(err){
+                        console.log(err);
+                    }else {
+                        res.render("student/index",{notice:notice});
+                    }
+                })
 
             }
         })
@@ -52,9 +59,13 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                res.render("principal/index");
-                console.log(principal);
-
+                Announcement.findOne({},function (err,notice) {
+                    if(err){
+                        console.log(err);
+                    }else {
+                        res.render("principal/index",{notice:notice});
+                    }
+                })
             }
         })
     }else if(req.user.type==="Teacher"){
@@ -62,8 +73,13 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                res.render("teacher/index");
-                console.log(teacher);
+                Announcement.findOne({},function (err,notice) {
+                    if(err){
+                        console.log(err);
+                    }else {
+                        res.render("teacher/index",{notice:notice});
+                    }
+                })
 
             }
         })
@@ -77,6 +93,40 @@ router.post("/login", passport.authenticate("local",
         failureRedirect: "/"
     }), function(req, res){
 });
+
+router.get("/announcement",isLoggedIn,function (req,res) {
+    res.render("principal/announcements");
+})
+
+router.post("/announcement",isLoggedIn,function (req,res) {
+    Announcement.remove({},function (err) {
+        if(err){
+            console.log(err);
+        }else{
+            Announcement.create({
+                notice:req.body.announcement
+            },function (err,announcement) {
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect("/announcement/view")
+                }
+            })
+        }
+    })
+
+})
+
+router.get("/announcement/view",isLoggedIn,function (req,res) {
+    Announcement.findOne({},function (err,notice) {
+        if(err){
+            console.log(err);
+        }else {
+            res.render("principal/viewAnnouncements",{notice:notice});
+        }
+
+    })
+})
 
 router.get("*/logout", function(req, res){
     req.logout();

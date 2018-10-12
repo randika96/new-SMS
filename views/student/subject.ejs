@@ -2,59 +2,38 @@
 
 <link href="/stylesheets/fullcalendar.css" rel="stylesheet" media="screen">
 <link href="/stylesheets/calendar.css" rel="stylesheet">
-
-
 <div class="page-content">
     <div class="row">
         <div class="col-md-2">
             <% include navbar %>
         </div>
+        <div class="col-md-10">
 
-            <!--middle part-->
-                <div class="col-md-8" style="background-color: #dcdcdc;background-color:#F5FFFA;">
-                    <div class="row" >
-                        <h4 style="text-align:center;"><%=subject.name%></h4>
-                        <ul>
-                            <a href="/subjects/science/newsForum" ><i class="material-icons">message</i>      News forum</a>
-                        </ul>
+            <div class="content-box-large">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="content-box-large">
+                                <div class="panel-heading">
+                                    <div class="panel-title">New vs Returning Visitors</div>
 
+                                    <div class="panel-options">
+                                        <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                                        <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    Ut tristique adipiscing mauris, sit amet suscipit metus porta quis. Donec dictum tincidunt erat, eu blandit ligula. Nam sit amet dolor sapien. Quisque velit erat, congue sed suscipit vel, feugiat sit amet enim. Suspendisse interdum enim at mi tempor commodo. Sed tincidunt sed tortor eu scelerisque. Donec luctus malesuada vulputate. Nunc vel auctor metus, vel adipiscing odio. Aliquam aliquet rhoncus libero, at varius nisi pulvinar nec. Aliquam erat volutpat. Donec ut neque mi. Praesent enim nisl, bibendum vitae ante et, placerat pharetra magna. Donec facilisis nisl turpis, eget facilisis turpis semper non. Maecenas luctus ligula tincidunt iasdsd vitae ante et,
+                                    <br /><br />
+                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sed consectetur erat. Maecenas in elementum libero. Sed consequat pellentesque ultricies. Ut laoreet vehicula nisl sed placerat. Duis posuere lectus n, eros et hendrerit pellentesque, ante magna condimentum sapien, eget ultrices eros libero non orci. Etiam varius diam lectus.
+                                    <br /><br />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row" style="padding:10px;">
-                        <h5 >   1 January - 7 January</h5>
-                        <ul>
-                            <a href="/subjects/science/assignment"><i class="fa fa-file-text" style="font-size:24px"></i>  Assignment</a>
-                        </ul>
-                        <ul>
-                            <a href="/subjects/science/lectureSlides"><i class="far fa-file-alt" style="font-size:24px"></i>  Lecture Slides</a>
-                        </ul>
-
-                    </div>
-                    <div class="row" style="padding:10px;">
-                        <h5 >   8 January - 14 January</h5>
-                    </div>
-
                 </div>
-
-                <!--side nav-->
-                <div class="col-md-2" >
-
-
-                    <div class="sidebar content-box" ">
-                    <ul class="nav">
-                        <!-- Main menu -->
-
-                        <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Activity</a></li>
-                        <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Grades</a></li>
-                        <li><a href="index.html"><i class="glyphicon glyphicon-home"></i> Notifiations</a>
-                            <p style="margin:10px;">No announcements have been posted yet !</p></li>
-
-                    </ul>
-                </div>
-
-
-            <!--</div>-->
-
+            </div>
+        </div>
     </div>
-</div>
 
 <% include ../partials/footer %>

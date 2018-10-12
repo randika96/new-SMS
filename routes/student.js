@@ -9,6 +9,7 @@ var Admin = require("../models/admin");
 var Leave = require("../models/leave");
 var Attendence = require("../models/attendence");
 var Assignment = require("../models/assignment");
+var TeacherNotice = require("../models/teacherNotice");
 var fs = require('fs');
 var path = require('path');
 
@@ -17,7 +18,9 @@ router.get("/homework",function (req,res) {
     res.render("student/assignment");
 });
 
-
+router.get("/subjectMaterial",function (req,res) {
+    res.render("student/assignment");
+});
 
 
 
@@ -25,8 +28,16 @@ router.get("/assignments/add",function (req,res) {
     res.render("teacher/addAssignment");
 });
 
-router.get("/assignments",function (req,res) {
-    res.render("teacher/viewAssignment");
+router.get("/notice",function (req,res) {
+
+    TeacherNotice.find({},function (err,notices) {
+        if(err){
+            console.log(err)
+        }else {
+            res.render("student/studentNotice",{notices:notices});
+        }
+    })
+
 });
 
 router.get("/markattendance",function (req,res) {
