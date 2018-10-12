@@ -31,7 +31,7 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
                             // notice:notice.notice
                         }
                         console.log(newNotice);
-                        res.render("admin/index",{notice:notice});
+                        res.render("admin/index");
                         console.log(admin);
                     }
                 })
