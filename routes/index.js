@@ -21,20 +21,21 @@ router.get("/dashbord", isLoggedIn, function (req,res) {
             if(err){
                 console.log(err);
             }else {
-                Announcement.findOne({},function (err,notice) {
-                    if(err){
-                        console.log(err);
-                    }else {
-                        console.log(notice);
-                        var newNotice = {
-                            // topic:notice.topic,
-                            // notice:notice.notice
-                        }
-                        console.log(newNotice);
-                        res.render("admin/index");
-                        console.log(admin);
-                    }
-                })
+                // Announcement.findOne({},function (err,notice) {
+                //     if(err){
+                //         console.log(err);
+                //     }else {
+                //         console.log(notice);
+                //         var newNotice = {
+                //             // topic:notice.topic,
+                //             // notice:notice.notice
+                //         }
+                //         console.log(newNotice);
+                //         res.render("admin/index");
+                //         console.log(admin);
+                //     }
+                // })
+                res.render("admin/index");
 
 
             }
