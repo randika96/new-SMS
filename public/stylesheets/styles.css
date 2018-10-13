@@ -377,7 +377,7 @@ footer .copy{
   background: -o-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
   background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
   background-color: #eff0f3;
-    background-image: url(http://codeteachers.com/wp-content/uploads/2014/09/stem-girls-coding-kids.jpg);
+    background-image: url(background.jpg);
   background-repeat: no-repeat;
   height: 100%;
 }
