@@ -24,12 +24,18 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th>Module</th>
+                                    <th>Description</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <% assignments.forEach(function(assignment){ %>
+                                <tr class="odd gradeX">
+                                    <td><%= assignment.duedate%></td>
+                                    <td><%= assignment.module %> </td>
+                                    <td><%= assignment.description %></td>
+                                </tr>
+                                <%})%>
                                 </tbody>
                             </table>
 

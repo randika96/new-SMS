@@ -1,7 +1,7 @@
 {
   "name": "school_management_system",
   "version": "1.0.0",
-  "description": "Semster 3 OOSD project",
+  "description": "Semester 4 SE project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

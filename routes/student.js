@@ -15,7 +15,13 @@ var path = require('path');
 
 
 router.get("/homework",function (req,res) {
-    res.render("student/assignment");
+    Assignment.find({}, function (err, assignments) {
+        if(err){
+            console.log(err)
+        }else {
+            res.render("student/assignment", {assignments:assignments})
+        }
+    })
 });
 
 router.get("/subjectMaterial",function (req,res) {

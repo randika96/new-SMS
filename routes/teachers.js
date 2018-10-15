@@ -40,7 +40,14 @@ router.get("/assignments/add",function (req,res) {
 });
 
 router.get("/assignments",function (req,res) {
-    res.render("teacher/viewAssignment");
+    // res.render("teacher/viewAssignment");
+    Assignment.find({}, function (err, assignments) {
+        if(err){
+            console.log(err)
+        }else {
+            res.render("teacher/viewAssignment", {assignments:assignments})
+        }
+    })
 });
 
 router.get("/markattendance",function (req,res) {
@@ -115,65 +122,27 @@ router.post("/markattendence",function (req,res) {
 //   });
 
 router.post("/assignment",function (req,res) {
-    req.checkBody('name','startdate is required').notEmpty();
-    req.checkBody('description','enddate is required').notEmpty();
-    req.checkBody('duedate','reason is required').notEmpty();
-    req.checkBody('time','startdate is required').notEmpty();
 
+        console.log(req.body);
+        var assignment = new Assignment({
+            "class":req.body.class,
+            "description":req.body.description,
+            "module":req.body.module,
+            "duedate":req.body.duedate
+        });
 
-    // Get Errors
-    let errors = req.validationErrors();
-
-    if(errors){
-        // res.render("Error", {
-        //     errors:errors
-        // });
-    }
-
-    else{
-        let assignment = new Assignment();
-
-        console.log('file info: ', req.file);
-        var possible = 'abcdefghijklmnopqrstuvwxyz0123456789',
-            imgUrl = '';
-
-        for (var i = 0; i < 6; i += 1) {
-            imgUrl += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-
-        var tempPath = req.file.path, //<line 55 error
-            ext = path.extname(req.file.originalname).toLowerCase(),
-            targetPath = path.resolve('./public/upload/' + imgUrl + ext);
-
-        if (ext === '.png' || ext === '.jpg' || ext === '.doc' || ext === '.pdf' || ext === '.pptx' || ext === '.xlsx' || ext === '.docx' || ext === '.txt') {
-            fs.rename(tempPath, targetPath, function (err) {
-                if (err) throw err;
-                console.log("Upload completed!");
-            });
-        } else {
-            fs.unlink(tempPath, function () {
-                if (err) throw err;
-                res.json(500, {error: 'Only image files are allowed.'});
-            });
-        }
-
-
-        assignment.name = req.body.name;
-        assignment.class = req.body.class;
-        assignment.description = req.body.description;
-        assignment.duedate = req.body.duedate ;
-        assignment.filename =targetPath ;
-        assignment.module=req.body.module;
-
-        assignment.save(function(err){
+        Assignment.create(assignment, function (err) {
             if(err){
                 console.log(err);
-                return;
-            } else {
-                res.redirect('/dashboard');
+            }else{
+                console.log(assignment)
+                res.redirect("/dashbord")
             }
-        });
-    }
+        })
+
+
+
+
 });
 
 router.get("/coursematerial",function (req,res) {
@@ -203,7 +172,8 @@ router.post("/notice",function (req,res) {
                 if(err){
                     console.log(err);
                 }else {
-                    console.log(notice)
+                    console.log(notice);
+                    res.redirect("/dashbord");
                 }
             })
         }

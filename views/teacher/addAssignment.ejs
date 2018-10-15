@@ -18,13 +18,7 @@
                     <div class="panel-title">Leave details</div>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="/teachers//assignment" id="leaveForm" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="Name" required>
-                            </div>
-                        </div>
+                    <form class="form-horizontal" role="form" action="/teachers/assignment" id="leaveForm" method="POST">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Module</label>
                             <div class="col-sm-10">
@@ -38,9 +32,6 @@
                                 <textarea class="form-control" placeholder="Description" rows="3" name="description" id="description" required></textarea>
                             </div>
                         </div>
-
-
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Class</label>
                             <div class="col-sm-10">
@@ -51,21 +42,21 @@
                         <div class="form-group"> <!-- Date input -->
                             <label for="inputEmail3" class="col-sm-2 control-label">Due Date</label>
                             <div class="col-sm-10">
-                            <input class="form-control" id="duedate" name="duedate" placeholder="MM/DD/YYYY" type="date" required/>
+                                <input class="form-control" id="duedate" name="duedate" placeholder="MM/DD/YYYY" type="date" required/>
                             </div>
                         </div>
                         <!--<div class="form-group"> &lt;!&ndash; Date input &ndash;&gt;-->
-                            <!--<label for="inputEmail3" class="col-sm-2 control-label">Time </label>-->
+                        <!--<label for="inputEmail3" class="col-sm-2 control-label">Time </label>-->
+                        <!--<div class="col-sm-10">-->
+                        <!--<input class="form-control" id="time" name="time" placeholder="HH/MM" type="time" required/>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group"> &lt;!&ndash; Date input &ndash;&gt;-->
+                            <!--<label for="inputEmail3" class="col-sm-2 control-label">Input file</label>-->
                             <!--<div class="col-sm-10">-->
-                                <!--<input class="form-control" id="time" name="time" placeholder="HH/MM" type="time" required/>-->
+                                <!--<input type="file" class="form-control-file" id="file" name="file" required>-->
                             <!--</div>-->
                         <!--</div>-->
-                        <div class="form-group"> <!-- Date input -->
-                            <label for="inputEmail3" class="col-sm-2 control-label">Input file</label>
-                            <div class="col-sm-10">
-                                    <input type="file" class="form-control-file" id="file" name="file" required>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary">Submit</button>
